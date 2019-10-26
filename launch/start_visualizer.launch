@@ -1,13 +1,13 @@
 <launch>
 
     <!-- Loading the robot description -->
-    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find robotont_description)/xacro/main.urdf.xacro"/>
-    <param name="robot_description_semantic" command="$(find xacro)/xacro --inorder $(find robotont_description)/xacro/main.urdf.xacro prefix:=clearbot2_"/>
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find trajectory_visualizer)/urdf/xacro/main.urdf.xacro"/>
+    <param name="robot_description_semantic" command="$(find xacro)/xacro --inorder $(find trajectory_visualizer)/urdf/xacro/main.urdf.xacro"/>
     
     <!-- State publishers -->
     <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
-    <node name="fake_odom_publiher"    pkg="trajectory_visualizer" type="fake_odom_publisher" output="screen"/>
+    <node name="robot_fake_odom_publiher"    pkg="trajectory_visualizer" type="robot_fake_odom_publisher" output="screen"/>
     
     <!-- Loading Rviz configuration file -->
     <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d $(find trajectory_visualizer)/config/single_robot_trajectory_visualizer.rviz"/>

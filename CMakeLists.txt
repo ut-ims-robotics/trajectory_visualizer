@@ -207,5 +207,5 @@ include_directories(
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
 
-add_executable (fake_odom_publisher src/fake_odom_publisher.cpp)
-target_link_libraries(fake_odom_publisher ${catkin_LIBRARIES})
+add_executable (robot_fake_odom_publisher src/robot_fake_odom_publisher.cpp)
+target_link_libraries(robot_fake_odom_publisher ${catkin_LIBRARIES})
