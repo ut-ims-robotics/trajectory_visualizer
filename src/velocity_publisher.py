@@ -8,6 +8,7 @@ from geometry_msgs.msg import PoseStamped
 from std_msgs.msg import Header
 import time
 import numpy as np
+import signal
 
 ############
 def read_text (text_file):
@@ -22,12 +23,12 @@ def read_text (text_file):
 
 
 counter = 0
-robot_x = read_text("robot_x_pose.txt")
-robot_y = read_text("robot_y_pose.txt")
+robot_x = np.linspace(0,5,10)
+robot_y = np.linspace(0,5,10)
 
  ## Defininf paths for themm to get visualized in Rviz
 robot_trajectory = Path()
-dt = 30/242
+dt = 5/10
 
 robot_vx = []
 robot_vy = []
@@ -37,7 +38,7 @@ for i in range (np.size(robot_x)-1):
      robot_vx.append((robot_x[i+1] - robot_x[i])/dt)
      robot_vy.append((robot_y[i+1] - robot_y[i])/dt)
 
-rospy.init_node('velocity_publisher')
+rospy.init_node('velocity_publisher', anonymous=True, disable_signals=True)
 robot_cmd_vel = rospy.Publisher('cmd_vel', Twist, queue_size=10)
 path_publisher = rospy.Publisher('path', Path, queue_size=10)
 for i in range (np.size(robot_x)):
@@ -54,24 +55,25 @@ for i in range (np.size(robot_x)):
     robot_trajectory.header.frame_id = "odom"
     
     robot_trajectory.poses.append(robot_pose)
-    
-while (not rospy.is_shutdown()):  
-    path_publisher.publish(robot_trajectory)
-    
-    if (counter==0):
-        for i in range (np.size(robot_vx)):
-            t_start = time.time()
-            twist = Twist()
-            twist.linear.x = robot_vx[i]
-            twist.linear.y = robot_vy[i]
-            twist.linear.z = 0
-            robot_cmd_vel.publish(twist)
-            t_end  = time.time()
-            time_difference = t_end - t_start
-            rospy.sleep(dt - time_difference)
-            counter+=1
-            path_publisher.publish(robot_trajectory)
-        twist.linear.x = 0
-        twist.linear.y = 0
-        twist.linear.z = 0
+
+twist = Twist()
+robot_cmd_vel.publish(twist)
+rospy.sleep(1)
+try:    
+    while (counter < np.size(robot_vx)):  
+        path_publisher.publish(robot_trajectory)
+        t_start = time.time()
+        twist.linear.x = robot_vx[counter]
+        twist.linear.y = robot_vy[counter]
+        twist.angular.z = 0
+        counter+=1
         robot_cmd_vel.publish(twist)
+        t_end  = time.time()
+        time_difference = t_end - t_start
+        rospy.sleep(dt - time_difference)
+except KeyboardInterrupt:
+        print "Interrupt happened! Program terminated!"
+twist.linear.x = 0
+twist.linear.y = 0
+twist.linear.z = 0
+robot_cmd_vel.publish(twist)
