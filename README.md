@@ -15,7 +15,7 @@
 * ~ duration
 # Example usage
 
-In order to get the visualizer and the velocity publisher running you need to first launch the visualizer launch file and then launch the velocity_publisher launch in another terminal, which can be done through the commands below:
+In order to get the visualizer and the velocity publisher running you need to first launch the visualizer launch file and then launch the velocity_publisher.launch in another terminal, which can be done through the commands below:
 
 1. In the first terminal: <br/>
 ``` roslaunch trajectory_visualizer start_visualizer.launch ```
