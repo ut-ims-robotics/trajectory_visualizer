@@ -20,4 +20,4 @@ In order to get the visualizer and the velocity publisher running you need to fi
 1. In the first terminal: <br/>
 ``` roslaunch trajectory_visualizer start_visualizer.launch ```
 2. In another terminal: <br />
-``` rosrun trajectory_visualizer velocity_publisher.py ```
+``` roslaunch trajectory_visualizer velocity_publisher.launch duration:=5```
