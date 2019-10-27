@@ -15,9 +15,15 @@
 * ~ duration
 # Example usage
 
-In order to get the visualizer and the velocity publisher running you need to first launch the visualizer launch file and then run the velocity_publisher node in another terminal, which can be done through the commands below:
+In order to get the visualizer and the velocity publisher running you need to first launch the visualizer launch file and then launch the velocity_publisher launch in another terminal, which can be done through the commands below:
 
 1. In the first terminal: <br/>
 ``` roslaunch trajectory_visualizer start_visualizer.launch ```
 2. In another terminal: <br />
-``` roslaunch trajectory_visualizer velocity_publisher.launch duration:=5```
+``` roslaunch trajectory_visualizer velocity_publisher.launch ```
+<br/>
+
+The x and y coordinates CSV files are located in sample_data folder of the package and the default duration time is set to 5 seconds. You can change the paths as well as the duration time using the parameters available when you launch the velocity_publisher.launch as the following:<br>
+
+``` roslaunch trajectory_visualizer velocity_publisher.launch x_path:=path_to_x_coordinates y_path:=path_to_y_coordinates duration:=duration_of_trajectory_execution ```
+
