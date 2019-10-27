@@ -9,6 +9,10 @@
 # Published and subscribed topics
 * ~/odom (nav_msgs/Odometry)
 * ~/cmd_vel (geometry_msgs/Twist)
+# Parameters
+* ~ x_path
+* ~ y_path
+* ~ duration
 # Example usage
 
 In order to get the visualizer and the velocity publisher running you need to first launch the visualizer launch file and then run the velocity_publisher node in another terminal, which can be done through the commands below:
