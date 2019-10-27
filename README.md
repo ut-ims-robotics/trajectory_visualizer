@@ -3,7 +3,7 @@
 ##### This package is used for visualizing a robot trajectory in Rviz.
 
 * The robot is omnidirectional and accepts linear.x, linear.y, and angular.z velocity values in form a of Twist message.
-* The user should provide waypoints for the trajetory to the velocity_publisher nodes in terms of x and y coordinates in two seperate CSV files.
+* The user should provide waypoints for the trajetory to the velocity_publisher node in terms of x and y coordinates in two seperate CSV files.
 * The user can see whether and how the robot would follow the trajectory using the corresponding velocities generated.
 
 # Published and subscribed topics
