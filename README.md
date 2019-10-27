@@ -9,3 +9,11 @@
 # Published and subscribed topics
 * ~/odom (nav_msgs/Odometry)
 * ~/cmd_vel (geometry_msgs/Twist)
+# Example usage
+
+In order to get the visualizer and the velocity publisher running you need to first launch the visualizer launch file and then run the velocity_publisher node in another terminal, which can be done through the commands below:
+
+1. In the first terminal: <br/>
+``` roslaunch trajectory_visualizer start_visualizer.launch ```
+2. In another terminal: <br />
+``` rosrun trajectory_visualizer velocity_publisher.py ```
