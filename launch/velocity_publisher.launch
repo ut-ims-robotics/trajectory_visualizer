@@ -1,8 +1,8 @@
 <launch>
-  <arg name="x_path" default="$(find trajectory_visualizer)/sample_data/quadrotor/x.csv" />
-  <arg name="y_path" default="$(find trajectory_visualizer)/sample_data/quadrotor/y.csv" />
-  <arg name="vx_path" default="$(find trajectory_visualizer)/sample_data/quadrotor/xdot.csv" />
-  <arg name="vy_path" default="$(find trajectory_visualizer)/sample_data/quadrotor/ydot.csv" />
+  <arg name="x_path" default="$(find trajectory_visualizer)/sample_data/x.csv" />
+  <arg name="y_path" default="$(find trajectory_visualizer)/sample_data/y.csv" />
+  <arg name="vx_path" default="$(find trajectory_visualizer)/sample_data/xdot.csv" />
+  <arg name="vy_path" default="$(find trajectory_visualizer)/sample_data/ydot.csv" />
 
   <arg name="duration" default="60" />
 
