@@ -4,11 +4,15 @@ import rospy
 from geometry_msgs.msg import Twist
 from geometry_msgs.msg import PoseStamped
 from nav_msgs.msg import Path
+from nav_msgs.msg import Odometry 
 from std_msgs.msg import Header
 import time
 import numpy as np
 import signal
 import csv
+    
+robot_odom_x = 0
+robot_odom_y = 0
 
 def read_csv_data(filename):
     try:
@@ -23,12 +27,19 @@ def read_csv_data(filename):
     values = map (float, values)
     return values
 
+def position_reader(data):
+    global robot_odom_x
+    global robot_odom_y
+    robot_odom_x = data.pose.pose.position.x
+    robot_odom_y = data.pose.pose.position.y
 
 if __name__=="__main__":
 
     rospy.init_node('velocity_publisher', anonymous=True, disable_signals=True)
     robot_cmd_vel = rospy.Publisher('cmd_vel', Twist, queue_size=10)
     path_publisher = rospy.Publisher('path', Path, queue_size=10)
+    position_subscriber = rospy.Subscriber("odom", Odometry, position_reader)
+    
     
     robot_x_path = rospy.get_param('~x_path')
     robot_y_path = rospy.get_param('~y_path')
@@ -43,7 +54,6 @@ if __name__=="__main__":
     robot_vy = read_csv_data(robot_y_velocity_path)
     
     dt = float(duration)/np.size(robot_vx)
-    print dt
     counter = 0
 
     ## Defining paths for themm to get visualized in Rviz
@@ -64,7 +74,10 @@ if __name__=="__main__":
         robot_trajectory.header.frame_id = "odom"
         
         robot_trajectory.poses.append(robot_pose)
-
+    
+    actual_trajectory_final_x = robot_x[-1]
+    actual_trajectory_final_y = robot_y[-1]
+    
     twist = Twist()
     robot_cmd_vel.publish(twist)
     
@@ -89,5 +102,8 @@ if __name__=="__main__":
     twist.angular.z = 0
     robot_cmd_vel.publish(twist)
     end = time.time()
+    
     print ("Execution time: " + str(end-start))
+    print ("The trajectory final position is: x = {} and y = {}".format(actual_trajectory_final_x, actual_trajectory_final_y))
+    print ("The robot reached position: x = {} and y = {}".format(robot_odom_x, robot_odom_y))
     exit()
