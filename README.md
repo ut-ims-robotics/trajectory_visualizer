@@ -27,5 +27,5 @@ In order to get the visualizer and the velocity publisher running you need to fi
 
 The x, y, vx, and vy CSV files are located in sample_data folder of the package and the default duration time is set to 60 seconds. You can change the paths as well as the duration time using the parameters available when you launch the velocity_publisher.launch as the following:<br>
 
-``` roslaunch trajectory_visualizer velocity_publisher.launch x_path:=path_to_x_coordinates y_path:=path_to_y_coordinates vx_path:= path_to_vx vy_path:=path_to_vy duration:=duration_of_trajectory_execution ```
+``` roslaunch trajectory_visualizer velocity_publisher.launch x_path:=path_to_x y_path:=path_to_y vx_path:= path_to_vx vy_path:=path_to_vy duration:=duration_of_trajectory_execution ```
 
