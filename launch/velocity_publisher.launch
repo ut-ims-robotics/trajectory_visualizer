@@ -1,11 +1,16 @@
 <launch>
-  <arg name="x_path" default="$(find trajectory_visualizer)/sample_data/x_values.csv" />
-  <arg name="y_path" default="$(find trajectory_visualizer)/sample_data/y_values.csv" />
+  <arg name="x_path" default="$(find trajectory_visualizer)/sample_data/quadrotor/x.csv" />
+  <arg name="y_path" default="$(find trajectory_visualizer)/sample_data/quadrotor/y.csv" />
+  <arg name="vx_path" default="$(find trajectory_visualizer)/sample_data/quadrotor/xdot.csv" />
+  <arg name="vy_path" default="$(find trajectory_visualizer)/sample_data/quadrotor/ydot.csv" />
+
   <arg name="duration" default="60" />
 
   <node name="velocity_publisher" pkg="trajectory_visualizer" type="velocity_publisher.py" output="screen">
     <param name="x_path" value="$(arg x_path)"/>
     <param name="y_path" value="$(arg y_path)"/>
+    <param name="vx_path" value="$(arg vx_path)"/>
+    <param name="vy_path" value="$(arg vy_path)"/>
     <param name="duration" value="$(arg duration)"/>
   </node>
 </launch>

@@ -23,32 +23,29 @@ def read_csv_data(filename):
     values = map (float, values)
     return values
 
-
 if __name__=="__main__":
 
     rospy.init_node('velocity_publisher', anonymous=True, disable_signals=True)
     robot_cmd_vel = rospy.Publisher('cmd_vel', Twist, queue_size=10)
     path_publisher = rospy.Publisher('path', Path, queue_size=10)
-    
     robot_x_path = rospy.get_param('~x_path')
     robot_y_path = rospy.get_param('~y_path')
-    robot_x_velocity_path = rospy.get_param('~vx_path')
-    robot_y_velocity_path = rospy.get_param('~vy_path')
     duration = rospy.get_param('~duration')
-    
     robot_x = read_csv_data(robot_x_path)
     robot_y = read_csv_data(robot_y_path)
-    
-    robot_vx = read_csv_data(robot_x_velocity_path)
-    robot_vy = read_csv_data(robot_y_velocity_path)
-    
-    dt = float(duration)/np.size(robot_vx)
-    print dt
+
+    dt = float(duration)/np.size(robot_x)
+    robot_vx = []
+    robot_vy = []
     counter = 0
 
     ## Defining paths for themm to get visualized in Rviz
     robot_trajectory = Path()
 
+    ## Filling the coordinate vectors
+    for i in range (np.size(robot_x)-1):
+        robot_vx.append((robot_x[i+1] - robot_x[i])/dt)
+        robot_vy.append((robot_y[i+1] - robot_y[i])/dt)
   
     for i in range (np.size(robot_x)):
         robot_pose = PoseStamped()
@@ -66,15 +63,14 @@ if __name__=="__main__":
         robot_trajectory.poses.append(robot_pose)
 
     twist = Twist()
+    path_publisher.publish(robot_trajectory)
     robot_cmd_vel.publish(twist)
-    
     rospy.sleep(1)
     path_publisher.publish(robot_trajectory)
-
     rate = rospy.Rate(1/dt)
-    start = time.time() 
     try:
-        while (counter < np.size(robot_vx)):
+        xx = time.time()
+        while (counter < np.size(robot_vx)):  
             twist.linear.x = robot_vx[counter]
             twist.linear.y = robot_vy[counter]
             twist.angular.z = 0
@@ -86,8 +82,8 @@ if __name__=="__main__":
     
     twist.linear.x = 0
     twist.linear.y = 0
-    twist.angular.z = 0
+    twist.linear.z = 0
     robot_cmd_vel.publish(twist)
-    end = time.time()
-    print ("Execution time: " + str(end-start))
+    yy = time.time()
+    print yy-xx
     exit()

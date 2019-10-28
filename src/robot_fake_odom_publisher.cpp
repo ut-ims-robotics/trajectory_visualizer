@@ -35,7 +35,7 @@ int main(int argc, char** argv)
   current_time = ros::Time::now();
   last_time = ros::Time::now();
 
-  ros::Rate r(30);
+  ros::Rate r(100);
   while(n.ok()){
 
     ros::spinOnce();               // check for incoming messages
@@ -66,6 +66,8 @@ int main(int argc, char** argv)
 
     //send the transform
     odom_broadcaster.sendTransform(odom_trans);
+    r.sleep();
+
     nav_msgs::Odometry odom;
     odom.header.stamp = current_time;
     odom.header.frame_id = odom_frame;
@@ -92,6 +94,5 @@ int main(int argc, char** argv)
     // Publish the message
     odom_pub.publish(odom);
     last_time = current_time;
-    r.sleep();
   }
 }
