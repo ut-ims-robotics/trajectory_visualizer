@@ -6,7 +6,9 @@
 * The user should provide waypoints for the trajetory as well as the corresponding velocity values to the velocity_publisher node in two seperate CSV files.
 * The user can see whether and how the robot would follow the trajectory using the corresponding velocities generated.
 # Installing dependanceis
-``` rosdep install --from-paths src --ignore-src -r -y ```
+``` 
+sudo apt-get install ros-kinetic-moveit-visual-tools
+ ```
 # Published and subscribed topics
 * ~/odom (nav_msgs/Odometry)
 * ~/cmd_vel (geometry_msgs/Twist)
