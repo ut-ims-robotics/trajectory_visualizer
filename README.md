@@ -2,7 +2,7 @@
 
 ##### This package is used for visualizing a robot trajectory in Rviz.
 
-* The robot is omnidirectional and accepts linear.x, linear.y, and angular.z velocity values in form a of Twist message.
+* The robot is omnidirectional and accepts linear.x, linear.y, and angular.z velocity values in form of a Twist message.
 * The user should provide waypoints for the trajetory as well as the corresponding velocity values to the velocity_publisher node in two seperate CSV files.
 * The user can see whether and how the robot would follow the trajectory using the corresponding velocities generated.
 # Installing dependanceis
@@ -11,11 +11,11 @@
 * ~/odom (nav_msgs/Odometry)
 * ~/cmd_vel (geometry_msgs/Twist)
 # Parameters
-* ~ x_path
-* ~ y_path
-* ~ vx_path
-* ~ vy_path
-* ~ duration
+* ~ x_path (default=/sample_data/x.csv)
+* ~ y_path (default=/sample_data/y.csv)
+* ~ vx_path (default=/sample_data/xdot.csv)
+* ~ vy_path (default=/sample_data/ydot.csv)
+* ~ duration (default=60)
 # Example usage
 
 In order to get the visualizer and the velocity publisher running you need to first launch the visualizer launch file and then launch the velocity_publisher.launch in another terminal, which can be done through the commands below:
